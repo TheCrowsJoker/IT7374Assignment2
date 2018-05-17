@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 
@@ -13,37 +14,50 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Writing
  */
 @WebServlet("/Writing")
-public class Writing extends HttpServlet {
+public class Write extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Date start;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Writing() {
-        super();
-        // TODO Auto-generated constructor stub
+    public Write() {
+        startTimer();
     }
+
+	private void startTimer() {
+		start = new Date();
+	}
+	
+	private String readTimer() {
+		return start.toString();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		startTimer();
+//		FileInputStream serviceAccount = new FileInputStream("https://writingassistantjava.firebaseio.com/");
 		
 		
-	}
-	
-	public void startTimer() {
-		Date start = new Date();
-		System.out.println(start);
+		
+		request.setAttribute("test", "Testing...");
+		request.getRequestDispatcher("write.jsp").forward(request, response);
+		String button = request.getParameter("button");
+		if ("startWriting".equals(button)) {
+//			response.sendRedirect("Write.jsp");
+		} else {
+//			response.sendRedirect("Write.jsp");
+		}
+		
+		
 	}
 
 }
