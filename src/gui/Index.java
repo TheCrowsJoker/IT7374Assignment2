@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,14 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String button = request.getParameter("button");
+		if ("startWriting".equals(button)) {
+			dbConnection db = new dbConnection();
+			Date time = new Date();
+			String results = db.dbConn(time, 'i', 0);
+			response.sendRedirect("Index.jsp");
+	//		doGet(request, response);
+		}
 	}
 
 	/**
@@ -33,7 +42,6 @@ public class Index extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
 	}
 
 }

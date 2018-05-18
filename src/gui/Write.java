@@ -23,6 +23,8 @@ public class Write extends HttpServlet {
      */
     public Write() {
         startTimer();
+        dbConnection db = new dbConnection();
+//        db.dbConn();
     }
 
 	private void startTimer() {
@@ -37,19 +39,21 @@ public class Write extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String button = request.getParameter("button");
+		if ("startWriting".equals(button)) {
+			dbConnection db = new dbConnection();
+			Date time = new Date();
+			String results = db.dbConn(time, 'i', 0);
+			response.sendRedirect("Index.jsp");
+	//		doGet(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		FileInputStream serviceAccount = new FileInputStream("https://writingassistantjava.firebaseio.com/");
-		
-		
-		
-		request.setAttribute("test", "Testing...");
-		request.getRequestDispatcher("write.jsp").forward(request, response);
+
 		String button = request.getParameter("button");
 		if ("startWriting".equals(button)) {
 //			response.sendRedirect("Write.jsp");
