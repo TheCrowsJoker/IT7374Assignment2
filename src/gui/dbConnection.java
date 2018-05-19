@@ -18,20 +18,21 @@ public class dbConnection {
 			Connection myConn = DriverManager.getConnection(dbURL, user, pass);
 			myConn.setAutoCommit(false);
 			String record = "";
+			
 			// Choose whether to update or insert into the database
 			if (choice == 'i') {
 				record = "INSERT INTO times (`startTime`) VALUES (?);";
 			} else if (choice == 'u') {
-				record ="Update times set endTime = timestamp(?) where id = ?;";
+				record ="Update times set endTime = timestamp(?) order by id desc limit 1;"; // update the last row of the table
 			} else if (choice == 's') {
 				record = "select * from times where id = ?;";
 			}
+			
 			PreparedStatement pstmt = myConn.prepareStatement(record);
 			Timestamp sqlDate = new Timestamp(date.getTime());
 			pstmt.setTimestamp(1, sqlDate);
-			if (choice == 'u') {
-				pstmt.setInt(2, id);
-			} else if (choice == 's') {
+			
+			if (choice == 's') {
 				pstmt.setInt(1, id);
 			}
 			
