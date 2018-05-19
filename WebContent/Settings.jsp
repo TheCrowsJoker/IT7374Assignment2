@@ -11,12 +11,12 @@
 		Settings
 	</h1>
 	
-	<form action="Settings" method="GET">
+	<form action="Settings" method="POST">
 		What is your word goal?
-		<input type="text" name="wordGoal" />
+		<input type="text" name="wordGoal" required />
 		
 		When would you like to have this finished?
-		<input type="datetime-local" name="dateGoal" />
+		<input type="date" name="dateGoal" required />
 		
 		<button type="submit" name="button" value="save">Save</button>
 	</form>

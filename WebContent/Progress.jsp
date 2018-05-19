@@ -10,12 +10,30 @@
 	<h1>
 		Progress
 	</h1>
+		
+	Start time: <%= request.getAttribute("startTime").toString() %>  <br>
 	
-	Start time: <%= request.getAttribute("startTime").toString() %> | 
+	End time: <%= request.getAttribute("endTime").toString() %>  <br>
 	
-	End time: <%= request.getAttribute("endTime").toString() %> | 
+	Time spent: <%= request.getAttribute("timeSpent").toString() %> <%= request.getAttribute("timeSpentPeriod").toString() %> <br>
 	
-	<%= request.getAttribute("timeSpent").toString() %> seconds
+	Word goal: <%= request.getAttribute("wordGoal").toString() %> <br>
 	
+	Date goal: <%= request.getAttribute("dateGoal").toString() %> <br>
+	
+	Words written today: <%= request.getAttribute("todaysWords").toString() %> <br>
+	
+	Total words written: <%= request.getAttribute("totalWords").toString() %> <br>
+	
+	Words per minute: <%= request.getAttribute("wordsPerMin").toString() %> <br>
+	
+	Estimated time to finish: <%= request.getAttribute("timeToFinish").toString() %> <br>
+	
+	Words left: <%= request.getAttribute("wordsLeft").toString() %>
+	
+	<form action="Progress" method="POST">
+		<button type="submit" name="button" value="done">Done</button>
+	</form>
+		
 </body>
 </html>

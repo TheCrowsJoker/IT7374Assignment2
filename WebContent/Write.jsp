@@ -11,7 +11,9 @@
 		Write
 	</h1>
 	
-	<form action="Write" method="GET">
+	<form action="Write" method="POST">
+		How many words did you write?
+		<input type="text" name="setWords" required />
 		<button type="submit" name="button" value="stopWriting">Stop writing</button>
 	</form>
 </body>
