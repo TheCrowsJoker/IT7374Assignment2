@@ -14,7 +14,7 @@
 	<a href="Help.jsp">?</a>
 	<img src="http://via.placeholder.com/350x150">
 	
-	<form action="Write" method="GET">
+	<form action="Index" method="GET">
 	<% Date time = new Date(); %>
 		<input type="hidden" name="startTime" value="<%= time.getTime() %>">
 		<button type="submit" name="button" value="startWriting">Start writing</button>

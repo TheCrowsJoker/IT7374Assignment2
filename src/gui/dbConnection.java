@@ -3,55 +3,52 @@ package gui;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class dbConnection {
 
-	public String dbConn(Date date, char choice, int id) {
+	public void dbConn(Date date, char choice, int id) {
 		String dbURL = "jdbc:mysql://127.0.0.1:3306/times?autoReconnect=true&useSSL=false";
 		String user = "admin";
 		String pass = "Passworda";
 				
 		try {
 			Connection myConn = DriverManager.getConnection(dbURL, user, pass);
-			Statement myStmt = myConn.createStatement();
+			myConn.setAutoCommit(false);
 			String record = "";
 			// Choose whether to update or insert into the database
 			if (choice == 'i') {
-				record = "INSERT INTO times (`startTime`) VALUES (?)";
+				record = "INSERT INTO times (`startTime`) VALUES (?);";
 			} else if (choice == 'u') {
 				record ="Update times set endTime = timestamp(?) where id = ?;";
+			} else if (choice == 's') {
+				record = "select * from times where id = ?;";
 			}
 			PreparedStatement pstmt = myConn.prepareStatement(record);
 			Timestamp sqlDate = new Timestamp(date.getTime());
 			pstmt.setTimestamp(1, sqlDate);
-			pstmt.setInt(2, id);
+			if (choice == 'u') {
+				pstmt.setInt(2, id);
+			} else if (choice == 's') {
+				pstmt.setInt(1, id);
+			}
 			
 			pstmt.executeUpdate();
+			myConn.commit();
 			
-			ResultSet myRs = myStmt.executeQuery("select * from times");
-			System.out.println("startTime             | endTime");
-			System.out.println("======================|======================");
-			while (myRs.next()) {
-				System.out.println(myRs.getString("startTime") + " | " + myRs.getString("endTime"));
-			}
-			myStmt.close();
+			pstmt.close();
 			myConn.close();
 			
-			return myRs.toString();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "";
 	}
 	
 //	public static void main(String[] args) {
 //		Date time = new Date();
-//		dbConn(time, 'u', 7);
+//		dbConn(time, 'i', 0);
 //	}
 
 }

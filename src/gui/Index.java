@@ -31,9 +31,8 @@ public class Index extends HttpServlet {
 		if ("startWriting".equals(button)) {
 			dbConnection db = new dbConnection();
 			Date time = new Date();
-			String results = db.dbConn(time, 'i', 0);
-			response.sendRedirect("Index.jsp");
-	//		doGet(request, response);
+			db.dbConn(time, 'i', 0);
+			response.sendRedirect("Write.jsp");
 		}
 	}
 

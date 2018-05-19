@@ -16,18 +16,7 @@
 	
 	<%
 		Date endTime = new Date();
-	
-		String button = request.getParameter("button");
-		if ("startWriting".equals(button)) {
-			dbConnection db = new dbConnection();
-			Date time = new Date();
-			String results = db.dbConn(time, 'i', 0);
-			//response.sendRedirect("Index.jsp");
-	//		doGet(request, response);
-		}
 	 %>
-	 
-	 <%= request.getParameter("res") %>
 	 	
 	<%= request.getParameter("startTime") != null ? endTime.getTime() - Long.parseLong(request.getParameter("startTime"), 10) : "Placeholder" %>
 	
