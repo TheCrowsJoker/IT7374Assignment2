@@ -14,10 +14,11 @@
 	<a href="Help.jsp">?</a>
 	<img src="http://via.placeholder.com/350x150">
 	
+	First time here? set your goals in the <strong>settings</strong>
+	
 	<form action="Index" method="GET">
 		<button type="submit" name="button" value="startWriting">Start writing</button>
+		<button type="submit" name="button" value="settings">Settings</button>
 	</form>
-	
-	<a href="Progress.jsp">View Progress</a>
 </body>
 </html>

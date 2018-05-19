@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -15,13 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Write")
 public class Write extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Write() {
-        
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,16 +26,44 @@ public class Write extends HttpServlet {
 		if ("stopWriting".equals(button)) {
 			dbConnection db = new dbConnection();
 			Date time = new Date();
-			db.dbConn(time, 'u', 0);
-			response.sendRedirect("Progress.jsp");
+			db.dbConn(time, 'u'); // update table
+			
+			ResultSet myRs = db.dbConn(time, 's'); // get info for next page			
+			
+			Date startTime = null;
+			Date endTime = null;
+			
+			try {
+				while (myRs.next()) {
+					startTime = myRs.getTimestamp("startTime");
+					endTime = myRs.getTimestamp("endTime");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			long timeSpent = (endTime.getTime() - startTime.getTime()) / 1000; // how many seconds where spent writing
+			
+			// Stats to show
+			////////////////
+			// time started
+			// time finished
+			// word goal
+			// finish goal
+			// time spent writing
+			
+			// words written today
+			// total words written			
+			// how long it would take to finish if this many words are written a day
+			// words left
+			
+			request.setAttribute("startTime", startTime);
+			request.setAttribute("endTime", endTime);
+//			request.setAttribute("wordGoal", wordGoal);
+//			request.setAttribute("finishGoal", finishGoal);
+			request.setAttribute("timeSpent", timeSpent);
+			
+			request.getRequestDispatcher("Progress.jsp").forward(request, response);	
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
 }

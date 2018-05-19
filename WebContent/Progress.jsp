@@ -11,5 +11,12 @@
 		Progress
 	</h1>
 	<a href="Help.jsp">?</a>
+	
+	Start time: <%= request.getAttribute("startTime").toString() %> | 
+	
+	End time: <%= request.getAttribute("endTime").toString() %> | 
+	
+	<%= request.getAttribute("timeSpent").toString() %> seconds
+	
 </body>
 </html>

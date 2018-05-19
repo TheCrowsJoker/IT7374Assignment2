@@ -3,13 +3,13 @@ package gui;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class dbConnection {
-
-	public void dbConn(Date date, char choice, int id) {
+	public ResultSet dbConn(Date date, char choice) {
 		String dbURL = "jdbc:mysql://127.0.0.1:3306/times?autoReconnect=true&useSSL=false";
 		String user = "admin";
 		String pass = "Passworda";
@@ -25,18 +25,23 @@ public class dbConnection {
 			} else if (choice == 'u') {
 				record ="Update times set endTime = timestamp(?) order by id desc limit 1;"; // update the last row of the table
 			} else if (choice == 's') {
-				record = "select * from times where id = ?;";
+				record = "select * from times order by id desc limit 1;"; // select the last row
 			}
 			
 			PreparedStatement pstmt = myConn.prepareStatement(record);
 			Timestamp sqlDate = new Timestamp(date.getTime());
-			pstmt.setTimestamp(1, sqlDate);
-			
-			if (choice == 's') {
-				pstmt.setInt(1, id);
+			if (choice != 's') {
+				pstmt.setTimestamp(1, sqlDate);
 			}
 			
-			pstmt.executeUpdate();
+			if (choice == 's') {
+				ResultSet myRs = pstmt.executeQuery();
+				return myRs;
+			} else {
+				pstmt.executeUpdate();
+			}
+			
+			
 			myConn.commit();
 			
 			pstmt.close();
@@ -45,11 +50,7 @@ public class dbConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
-	
-//	public static void main(String[] args) {
-//		Date time = new Date();
-//		dbConn(time, 'i', 0);
-//	}
-
 }
