@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Progress</title>
+<title>Writing Assistant</title>
 </head>
 <body>
 	<h1>
 		Progress
 	</h1>
-	<a href="Help.jsp">?</a>
 	
 	Start time: <%= request.getAttribute("startTime").toString() %> | 
 	

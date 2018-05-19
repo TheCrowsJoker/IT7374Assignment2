@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class dbConnection {
+public class dbConnection {	
 	public ResultSet dbConn(Date date, char choice) {
 		String dbURL = "jdbc:mysql://127.0.0.1:3306/times?autoReconnect=true&useSSL=false";
 		String user = "admin";
@@ -52,5 +52,69 @@ public class dbConnection {
 		}
 		
 		return null;
+	}
+	
+	public void setGoals(int wordGoal, Date dateGoal) {
+		String dbURL = "jdbc:mysql://127.0.0.1:3306/times?autoReconnect=true&useSSL=false";
+		String user = "admin";
+		String pass = "Passworda";
+		
+		try {
+			Connection myConn = DriverManager.getConnection(dbURL, user, pass);
+			myConn.setAutoCommit(false);
+			
+			String record = "INSERT INTO goals (`wordGoal`, `dateGoal`) VALUES (?, ?);" + 
+					"";
+			
+			PreparedStatement pstmt = myConn.prepareStatement(record);
+				
+			Timestamp sqlDate = new Timestamp(dateGoal.getTime());
+			
+			pstmt.setInt(1, wordGoal);
+			pstmt.setTimestamp(2, sqlDate);
+			
+			pstmt.executeUpdate();
+				
+			myConn.commit();
+			
+			pstmt.close();
+			myConn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean checkGoalsSet() {
+		String dbURL = "jdbc:mysql://127.0.0.1:3306/times?autoReconnect=true&useSSL=false";
+		String user = "admin";
+		String pass = "Passworda";
+				
+		try {
+			Connection myConn = DriverManager.getConnection(dbURL, user, pass);
+			myConn.setAutoCommit(false);
+			
+			String record = "select * from goals;";
+			
+			PreparedStatement pstmt = myConn.prepareStatement(record);
+				
+			ResultSet myRs = pstmt.executeQuery();
+			if (myRs.next()) {
+				myConn.commit();
+				pstmt.close();
+				myConn.close();
+				
+				return true;
+			} else {
+				myConn.commit();
+				pstmt.close();
+				myConn.close();
+				
+				return false;
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 }

@@ -8,11 +8,18 @@
 </head>
 <body>
 	<h1>
-		Write
+		Settings
 	</h1>
 	
-	<form action="Write" method="GET">
-		<button type="submit" name="button" value="stopWriting">Stop writing</button>
+	<form action="Settings" method="GET">
+		What is your word goal?
+		<input type="text" name="wordGoal" />
+		
+		When would you like to have this finished?
+		<input type="datetime-local" name="dateGoal" />
+		
+		<button type="submit" name="button" value="save">Save</button>
 	</form>
+
 </body>
 </html>

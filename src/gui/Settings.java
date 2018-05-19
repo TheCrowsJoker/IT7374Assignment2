@@ -1,7 +1,8 @@
 package gui;
 
 import java.io.IOException;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Index
+ * Servlet implementation class Settings
  */
-@WebServlet("/Index")
-public class Index extends HttpServlet {
+@WebServlet("/Settings")
+public class Settings extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -21,16 +22,21 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String button = request.getParameter("button");
-		if ("startWriting".equals(button)) {
+		if ("save".equals(button)) {
 			dbConnection db = new dbConnection();
 			
-			if (db.checkGoalsSet() == false) {
-				response.sendRedirect("Settings.jsp");
-			} else {
-				Date time = new Date();
-				db.dbConn(time, 'i');
-				response.sendRedirect("Write.jsp");
+			java.util.Date date = null;
+			try {
+				date = new SimpleDateFormat("dd/mm/yyyy hh:mm aa").parse(request.getParameter("dateGoal"));
+				db.setGoals(Integer.parseInt(request.getParameter("wordGoal")), date);
+			} catch (ParseException e) {
+				
 			}
+			
+			
+			
+			response.sendRedirect("Index.jsp");
 		}
 	}
+
 }
