@@ -29,14 +29,14 @@ public class Write extends HttpServlet {
 			Date endTime = dates[1];
 			
 			double timeSpent = (endTime.getTime() - startTime.getTime()) / 1000; // how many seconds where spent writing
-			String timeSpentPeriod = "Seconds";
+			String timeSpentPeriod = "second(s)";
 			if (timeSpent >= 60) {
 				timeSpent /= 60;  // Minutes
-				timeSpentPeriod = "Minutes";
+				timeSpentPeriod = "minute(s)";
 			}
 			if (timeSpent >= 60) {
 				timeSpent /= 60; // Hours
-				timeSpentPeriod = "Hours";
+				timeSpentPeriod = "hour(s)";
 			}
 			int wordGoal = db.getWordGoal();
 			Date dateGoal = db.getDateGoal();
@@ -45,15 +45,20 @@ public class Write extends HttpServlet {
 			int wordsLeft = wordGoal - totalWords;
 			double wordsPerMin;
 			
-			if (timeSpentPeriod.equals("Seconds")) {
+			if (timeSpentPeriod.equals("second(s)")) {
 				wordsPerMin = todaysWords / (timeSpent / 60);
-			} else if (timeSpentPeriod.equals("Minutes")) {
+			} else if (timeSpentPeriod.equals("minute(s)")) {
 				wordsPerMin = todaysWords / (timeSpent / 60 / 60);
 			} else {
 				wordsPerMin = todaysWords / (timeSpent / 60 / 60 / 60);
 			}
 			
-			double timeToFinish = wordsPerMin * wordsLeft;
+			double timeToFinish = wordsLeft / wordsPerMin;
+			String timeToFinishPeriod = "minute(s)";
+			if (timeToFinish > 60) {
+				timeToFinish /= 60;
+				timeToFinishPeriod = "hour(s)";
+			}
 			
 			request.setAttribute("startTime", startTime);
 			request.setAttribute("endTime", endTime);
@@ -65,6 +70,7 @@ public class Write extends HttpServlet {
 			request.setAttribute("totalWords", totalWords);
 			request.setAttribute("wordsPerMin", wordsPerMin);
 			request.setAttribute("timeToFinish", timeToFinish);
+			request.setAttribute("timeToFinishPeriod", timeToFinishPeriod);
 			request.setAttribute("wordsLeft", wordsLeft);
 			
 			request.getRequestDispatcher("Progress.jsp").forward(request, response);

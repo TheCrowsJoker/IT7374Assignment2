@@ -27,9 +27,9 @@
 		
 		<p>Total words written: <%= request.getAttribute("totalWords").toString() %></p>
 		
-		<p>Words per minute: <%= request.getAttribute("wordsPerMin").toString() %></p>
+		<p>Words per minute: <%= String.format("%.0f", request.getAttribute("wordsPerMin")) %></p>
 		
-		<p>Estimated time to finish: <%= request.getAttribute("timeToFinish").toString() %></p>
+		<p>Estimated time to finish: <%= String.format("%.0f", request.getAttribute("timeToFinish")) %> <%= request.getAttribute("timeToFinishPeriod").toString() %></p>
 		
 		<p>Words left: <%= request.getAttribute("wordsLeft").toString() %></p>
 		

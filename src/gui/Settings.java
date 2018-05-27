@@ -24,7 +24,7 @@ public class Settings extends HttpServlet {
 			
 			java.util.Date date = null;
 			try {
-				date = new SimpleDateFormat("dd/mm/yyyy hh:mm aa").parse(request.getParameter("dateGoal"));
+				date = new SimpleDateFormat("dd/mm/yyyy").parse(request.getParameter("dateGoal"));
 				db.setGoals(Integer.parseInt(request.getParameter("wordGoal")), date);
 			} catch (ParseException e) {
 				
