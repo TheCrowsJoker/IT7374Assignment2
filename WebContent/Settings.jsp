@@ -4,22 +4,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <title>Writing Assistant</title>
 </head>
 <body>
-	<h1>
-		Settings
-	</h1>
-	
-	<form action="Settings" method="POST">
-		What is your word goal?
-		<input type="text" name="wordGoal" required />
+	<div>
+		<h1>
+			Settings
+		</h1>
 		
-		When would you like to have this finished?
-		<input type="date" name="dateGoal" required />
-		
-		<button type="submit" name="button" value="save">Save</button>
-	</form>
+		<form action="Settings" method="POST">
+			<p>What is your word goal?</p>
+			<input type="number" name="wordGoal" required autofocus />
+			
+			<p>When would you like to have this finished?</p>
+			<input type="date" name="dateGoal" required />
+			
+			<div>
+				<button type="submit" name="button" value="save">Save</button>
+			</div>
+		</form>
+	</div>
 
 </body>
 </html>

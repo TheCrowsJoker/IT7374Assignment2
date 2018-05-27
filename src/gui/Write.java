@@ -28,7 +28,7 @@ public class Write extends HttpServlet {
 			Date startTime = dates[0];
 			Date endTime = dates[1];
 			
-			long timeSpent = (endTime.getTime() - startTime.getTime()) / 1000; // how many seconds where spent writing
+			double timeSpent = (endTime.getTime() - startTime.getTime()) / 1000; // how many seconds where spent writing
 			String timeSpentPeriod = "Seconds";
 			if (timeSpent >= 60) {
 				timeSpent /= 60;  // Minutes
@@ -43,8 +43,17 @@ public class Write extends HttpServlet {
 			int todaysWords = db.getWords();
 			int totalWords = db.getTotalWords();
 			int wordsLeft = wordGoal - totalWords;
-			long wordsPerMin = timeSpent / todaysWords;
-			long timeToFinish = wordsPerMin * (wordGoal - totalWords);
+			double wordsPerMin;
+			
+			if (timeSpentPeriod.equals("Seconds")) {
+				wordsPerMin = todaysWords / (timeSpent / 60);
+			} else if (timeSpentPeriod.equals("Minutes")) {
+				wordsPerMin = todaysWords / (timeSpent / 60 / 60);
+			} else {
+				wordsPerMin = todaysWords / (timeSpent / 60 / 60 / 60);
+			}
+			
+			double timeToFinish = wordsPerMin * wordsLeft;
 			
 			request.setAttribute("startTime", startTime);
 			request.setAttribute("endTime", endTime);

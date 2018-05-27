@@ -4,17 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <title>Writing Assistant</title>
 </head>
 <body>
-	<h1>
-		Writing Assistant
-	</h1>
-	<a href="Help.jsp">?</a>
-	<img src="http://via.placeholder.com/350x150">
-		
-	<form action="Index" method="POST">
-		<button type="submit" name="button" value="startWriting">Start writing</button>
-	</form>
+	<div>
+		<h1>
+			Writing Assistant
+		</h1>
+		<div class="help"><a href="Help.jsp">?</a></div>
+		<img src="http://via.placeholder.com/350x150">
+
+		<form action="Index" method="POST">
+			<button type="submit" name="button" value="startWriting">Start writing</button>
+		</form>
+	</div>
 </body>
 </html>

@@ -17,7 +17,7 @@ public class Progress extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String button = request.getParameter("button");
-		if ("set".equals(button)) {
+		if ("done".equals(button)) {
 			response.sendRedirect("Index.jsp");
 		}
 	}

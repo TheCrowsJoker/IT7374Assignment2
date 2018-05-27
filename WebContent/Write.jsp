@@ -4,17 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <title>Writing Assistant</title>
 </head>
 <body>
-	<h1>
-		Write
-	</h1>
-	
-	<form action="Write" method="POST">
-		How many words did you write?
-		<input type="text" name="setWords" required />
-		<button type="submit" name="button" value="stopWriting">Stop writing</button>
-	</form>
+	<div>
+		<h1>
+			Write
+		</h1>
+
+		<form action="Write" method="POST">
+			<p>How many words did you write?</p>
+			<input type="number" name="setWords" required autofocus />
+			<div>
+				<button type="submit" name="button" value="stopWriting">Stop writing</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
